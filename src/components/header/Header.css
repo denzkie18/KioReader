@@ -51,6 +51,7 @@ form {
 	width: auto;
 	min-width: 250px;
 	height: 40px;
+	margin-right: 20px;
 }
 
 form label {
@@ -78,4 +79,87 @@ form label input {
 
 form label input::placeholder {
 	color: var(--text-muted);
+}
+
+form label svg {
+	color: var(--text-muted);
+}
+
+.theme-switch {
+  --width: 48px;
+  --height: 24px;
+  --gap: 3px;
+  --ball-size: 18px;
+  
+  position: relative;
+  display: inline-block;
+  width: var(--width);
+  height: var(--height);
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #e2e8f0; /* Light mode track */
+  border-radius: 34px;
+  transition: 0.3s;
+  border: 1px solid #cbd5e1;
+}
+
+/* Moving Thumb */
+.ball {
+  position: absolute;
+  height: var(--ball-size);
+  width: var(--ball-size);
+  left: var(--gap);
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  
+  /* Center the icons inside the ball */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Handle the Movement */
+input:checked + .slider {
+  background-color: #334155; /* Dark mode track */
+  border-color: #475569;
+}
+
+input:checked + .slider .ball {
+  transform: translateX(calc(var(--width) - var(--ball-size) - (var(--gap) * 2)));
+  background-color: #1e293b; /* Darker ball for dark mode */
+}
+
+/* Icon Styles */
+.ball svg {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  transition: opacity 0.2s, transform 0.3s;
+}
+
+/* Visibility Logic */
+.icon-moon { opacity: 0; transform: rotate(-90deg); color: #f1c40f; }
+.icon-sun { opacity: 1; transform: rotate(0deg); color: #f59e0b; }
+
+input:checked + .slider .icon-sun {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+input:checked + .slider .icon-moon {
+  opacity: 1;
+  transform: rotate(0deg);
 }

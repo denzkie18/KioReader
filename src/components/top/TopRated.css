@@ -114,7 +114,7 @@
 
 .top-ul li .top-details h3 {
     font-size: 1.1rem;
-    color: var(--primar);
+    color: var(--primary-color);
     font-weight: 500;
     line-height: 1.3;
     display: -webkit-box;

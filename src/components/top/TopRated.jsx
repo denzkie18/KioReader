@@ -32,7 +32,7 @@ function BookList() {
     return (
         <div className="top-container">
             <div className="post-con-header">
-                <h3>Top Rated</h3>
+                <h3>Top Rated Books</h3>
             </div>
             <ul className="top-ul">
                 { loading ? (
