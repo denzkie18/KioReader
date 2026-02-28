@@ -1,0 +1,187 @@
+.shimmer-box {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-box::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* The Shimmer Gradient */
+    background-image: linear-gradient(
+        90deg,
+        rgba(28, 37, 65, 0) 0%,      /* Start transparent */
+        rgba(91, 192, 190, 0.05) 20%, /* Subtle hint of --secondary-color */
+        rgba(111, 255, 233, 0.1) 50%, /* Stronger hint of --primary-color */
+        rgba(91, 192, 190, 0.05) 80%, /* Fade back */
+        rgba(28, 37, 65, 0) 100%     /* End transparent */
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.latest-container {
+    max-width: 100%;
+    padding: 10px 20px;
+    margin-top: 50px;
+}
+
+.post-con-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-con-header h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow: hidden;
+}
+
+.pagination button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    display:  flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--card-color);
+    padding: 8px;
+    font-size: 0.9rem;
+    transition: color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.pagination button.active {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: 1px solid var(--accent-color);
+}
+
+.pagination button svg {
+    width: 100%;
+    height: 100%;
+    color: var(--primary-color);
+    transition: color 0.3s ease-in-out;
+}
+
+.pagination button:disabled svg {
+    color: var(--text-muted);
+}
+
+.pagination button:hover {
+    color: #ffffff;
+    cursor: pointer;
+    background-color: var(--accent-color);
+}
+
+.pagination button:hover svg {
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.pagination button:hover:disabled svg {
+    color: var(--text-muted);
+}
+
+.latest-ul {
+    max-width: 100%;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    grid-gap: 20px;
+}
+
+.latest-ul li {
+    height: auto;
+    overflow: hidden;
+}
+
+.latest-ul li .book-card {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+}
+
+.latest-ul li .book-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.latest-ul li .book-card:hover img {
+    transform: scale(1.1);
+}
+
+.latest-ul li .book-card .ratingBadge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 8px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: var(--primary-color);
+    background-color: var(--card-color);
+    font-size: 0.7rem;
+    z-index: 1;
+}
+
+.latest-ul li .book-card .timeBadge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 0.6rem;
+    color: var(--primary-color);
+    background-color: var(--card-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 8px;
+}
+
+.latest-ul li h3 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 400;
+    padding: 5px 8px;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

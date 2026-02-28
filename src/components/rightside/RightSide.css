@@ -1,0 +1,10 @@
+.right-panel {
+	width: 350px;
+	height: 90dvh;
+	padding: 10px;
+	overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+}
