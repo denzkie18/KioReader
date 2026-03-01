@@ -1,8 +1,9 @@
-// src/app/page.js
+import Post from '@/components/post/Post';
 
 export default function Home() {
   return (
-    <div>
-    </div>
+    <>
+      <Post />
+    </>
   );
 }

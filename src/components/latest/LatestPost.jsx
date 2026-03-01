@@ -106,7 +106,9 @@ function BookList() {
                     books.map((book) => (
                         <li key={book.id} className="book-item">
                             <div className="book-card">
-                                <span className="ratingBadge">{book.rating.toFixed(1)}</span>
+                                <span className="ratingBadge">
+                                    {Number(book.rating || 0).toFixed(1)}
+                                </span>
                                 <img src={book.cover} alt={book.title_en} />
                                 <span className="timeBadge">{book.created_at}</span>
                             </div>

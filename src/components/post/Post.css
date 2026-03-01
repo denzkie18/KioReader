@@ -1,4 +1,4 @@
-.center-panel {
+.content-area {
     flex: 1;
     height: 90dvh;
     padding: 10px;
@@ -7,6 +7,11 @@
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none; 
+}
+
+.center-panel {
+    max-width: 100%;
+    min-width: 100%;
 }
 
 .center-panel::-webkit-scrollbar {
