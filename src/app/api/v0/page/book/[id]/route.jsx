@@ -19,25 +19,34 @@ async function getNovelData(ranobi_id) {
     const firstEdition = book?.editions?.[0];
     const staffList = firstEdition?.staff || [];
     const publisherList = book?.publishers || [];
+    const release_dates = book?.c_release_dates || [];
+
+    const rawTags = book?.series?.tags || [];
+    const genres = rawTags
+      .filter((t) => t.ttype === "genre")
+      .map((t) => t.name);
+
+    const tags = rawTags.filter((t) => t.ttype === "tag").map((t) => t.name);
 
     return {
+      series_id: book?.series?.id,
       title_en: book?.title || null,
       title_jp: book?.title_orig || null,
       romaji: book?.romaji_orig || null,
       description: book?.description || "No description available.",
-      staff: {
-        author:
-          staffList.find((s) => s.role_type === "author")?.romaji || "Unknown",
-        illustrator:
-          staffList
-            .filter((s) => s.role_type === "artist")
-            .map((s) => s.romaji || s.name)
-            .join(", ") || "Unknown",
-      },
+      staff: staffList.map((s) => ({
+        name: s.romaji || null,
+        role: s.role_type || null,
+      })),
       publishers: publisherList.map((p) => ({
         name: p.name,
         role: p.publisher_type,
       })),
+      published_date: Array.isArray(release_dates)
+        ? release_dates.map((r) => ({ en: r.en, jp: r.ja }))
+        : [{ en: release_dates.en, jp: release_dates.ja }],
+      tags: tags,
+      genres: genres,
     };
   } catch (error) {
     console.error("External API Error:", error);
@@ -76,6 +85,7 @@ export async function GET(request, { params }) {
     // 4. Construct response
     const bookInformation = {
       id: book.id,
+      series_id: bookData.series_id,
       ranobi_id: book.ranobi_id,
       titles: {
         english: bookData?.title_en || book.title,
@@ -86,8 +96,11 @@ export async function GET(request, { params }) {
       description: bookData?.description || "No description available.",
       staff: bookData?.staff || { author: "Unknown", illustrator: "Unknown" },
       publishers: bookData?.publishers || [],
+      published_date: bookData?.published_date || [],
+      tags: bookData.tags,
+      genres: bookData.genres,
       links: {
-        epub: getMaskedLink(book.epub),
+        epub: book.epub,
         pdf: getMaskedLink(book.pdf),
       },
     };

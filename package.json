@@ -9,12 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "cors": "^2.8.6",
+    "epubjs": "^0.3.93",
     "fs": "^0.0.1-security",
     "lucide-react": "^0.575.0",
     "next": "16.1.6",
     "path": "^0.12.7",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-markdown": "^10.1.0"
   },
   "devDependencies": {
     "eslint": "^9",

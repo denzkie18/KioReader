@@ -18,11 +18,11 @@
     /* The Shimmer Gradient */
     background-image: linear-gradient(
         90deg,
-        rgba(28, 37, 65, 0) 0%,      /* Start transparent */
-        rgba(91, 192, 190, 0.05) 20%, /* Subtle hint of --secondary-color */
-        rgba(111, 255, 233, 0.1) 50%, /* Stronger hint of --primary-color */
-        rgba(91, 192, 190, 0.05) 80%, /* Fade back */
-        rgba(28, 37, 65, 0) 100%     /* End transparent */
+        rgba(28, 37, 65, 0) 0%,
+        /* Start transparent */ rgba(91, 192, 190, 0.05) 20%,
+        /* Subtle hint of --secondary-color */ rgba(111, 255, 233, 0.1) 50%,
+        /* Stronger hint of --primary-color */ rgba(91, 192, 190, 0.05) 80%,
+        /* Fade back */ rgba(28, 37, 65, 0) 100% /* End transparent */
     );
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite linear;
@@ -73,7 +73,7 @@
     height: 40px;
     color: var(--text-muted);
     border: 1px solid var(--border-color);
-    display:  flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--card-color);
@@ -128,7 +128,12 @@
     overflow: hidden;
 }
 
-.latest-ul li .book-card {
+.latest-ul li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.latest-ul li a .book-card {
     width: 100%;
     aspect-ratio: 2 / 3;
     border-radius: 10px;
@@ -138,19 +143,19 @@
     cursor: pointer;
 }
 
-.latest-ul li .book-card img {
+.latest-ul li a .book-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.0);
+    transform: scale(1);
     transition: transform 0.2s ease-in-out;
 }
 
-.latest-ul li .book-card:hover img {
+.latest-ul li a .book-card:hover img {
     transform: scale(1.1);
 }
 
-.latest-ul li .book-card .ratingBadge {
+.latest-ul li a .book-card .ratingBadge {
     position: absolute;
     top: 0;
     left: 0;
@@ -163,7 +168,7 @@
     z-index: 1;
 }
 
-.latest-ul li .book-card .timeBadge {
+.latest-ul li a .book-card .timeBadge {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -175,7 +180,7 @@
     margin: 8px;
 }
 
-.latest-ul li h3 {
+.latest-ul li a h3 {
     font-size: 1rem;
     color: var(--primary-color);
     font-weight: 400;

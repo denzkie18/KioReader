@@ -1,7 +1,8 @@
-'use client';
-import { useEffect, useState } from 'react';
-import './LatestPost.css';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+"use client";
+import { useEffect, useState } from "react";
+import "./LatestPost.css";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const getSlidingPages = (currentPage, total) => {
     const pageSize = 5;
@@ -21,7 +22,7 @@ const getSlidingPages = (currentPage, total) => {
         canGoPrev: currentWindow > 1,
         canGoNext: currentWindow < totalWindow,
         startPage,
-        endPage
+        endPage,
     };
 };
 
@@ -36,7 +37,9 @@ function BookList() {
         const loadBooks = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`/api/v0/latest?page=${page}&limit=${limit}`);
+                const response = await fetch(
+                    `/api/v0/latest?page=${page}&limit=${limit}`,
+                );
                 const result = await response.json();
 
                 setBooks(result.data || []);
@@ -51,7 +54,10 @@ function BookList() {
         loadBooks();
     }, [page]);
 
-    const { pages, canGoPrev, canGoNext, startPage, endPage } = getSlidingPages(page, totalPages);
+    const { pages, canGoPrev, canGoNext, startPage, endPage } = getSlidingPages(
+        page,
+        totalPages,
+    );
 
     const goToPrevGroup = () => {
         setPage(Math.max(1, startPage - 1));
@@ -67,8 +73,8 @@ function BookList() {
                 <h3>Recently Updated</h3>
                 {!loading && (
                     <div className="pagination">
-                        <button 
-                            disabled={!canGoPrev} 
+                        <button
+                            disabled={!canGoPrev}
                             onClick={goToPrevGroup}
                             title="Previous 5 pages"
                         >
@@ -78,15 +84,15 @@ function BookList() {
                         {pages.map((p) => (
                             <button
                                 key={p}
-                                className={page === p ? 'active' : ''}
+                                className={page === p ? "active" : ""}
                                 onClick={() => setPage(p)}
                             >
                                 {p}
                             </button>
                         ))}
 
-                        <button 
-                            disabled={!canGoNext} 
+                        <button
+                            disabled={!canGoNext}
                             onClick={goToNextGroup}
                             title="Next 5 pages"
                         >
@@ -96,26 +102,34 @@ function BookList() {
                 )}
             </div>
             <ul className="latest-ul">
-                {loading ? (
-                    Array.from({ length: limit }).map((_, index) => (
-                        <li key={`shimmer-${index}`}>
-                            <div className="shimmer-box"></div>
-                        </li>
-                    ))
-                ) : (
-                    books.map((book) => (
-                        <li key={book.id} className="book-item">
-                            <div className="book-card">
-                                <span className="ratingBadge">
-                                    {Number(book.rating || 0).toFixed(1)}
-                                </span>
-                                <img src={book.cover} alt={book.title_en} />
-                                <span className="timeBadge">{book.created_at}</span>
-                            </div>
-                            <h3>{book.title_en}</h3>
-                        </li>
-                    ))
-                )}
+                {loading
+                    ? Array.from({ length: limit }).map((_, index) => (
+                          <li key={`shimmer-${index}`}>
+                              <div className="shimmer-box"></div>
+                          </li>
+                      ))
+                    : books.map((book) => (
+                          <li key={book.id} className="book-item">
+                              <Link
+                                  href={`/book/${book.id}`}
+                                  className="book-link-wrapper"
+                              >
+                                  <div className="book-card">
+                                      <span className="ratingBadge">
+                                          {Number(book.rating || 0).toFixed(1)}
+                                      </span>
+                                      <img
+                                          src={book.cover}
+                                          alt={book.title_en}
+                                      />
+                                      <span className="timeBadge">
+                                          {book.created_at}
+                                      </span>
+                                  </div>
+                                  <h3>{book.title_en}</h3>
+                              </Link>
+                          </li>
+                      ))}
             </ul>
         </div>
     );
